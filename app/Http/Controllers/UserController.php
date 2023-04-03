@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Books;
 use App\Models\Cart;
 use App\Models\likes;
+use App\Models\Orders;
+use App\Models\review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +21,14 @@ class UserController extends Controller
         $total_cart_item = Cart::count();
         $likes =  likes::all();
         if (session()->has('loginId')) {
-            if (session()->has('usertype') == "user") {
-                return view('dashboard', compact('all_books', 'total_cart_item', 'likes'));
+            $user = User::find(session()->has('loginId'));
+            if ($user) {
+                if ($user->usertype == "admin") {
+                    $all_users = User::count();
+                    return redirect("/admindashboard");
+                } else {
+                    return view('dashboard', compact('all_books', 'total_cart_item', 'likes'));
+                }
             }
         }
         return view('dashboard', compact('all_books', 'likes'));
@@ -106,5 +114,46 @@ class UserController extends Controller
             }
         }
         return redirect('/login');
+    }
+    public function addratings(Request $request, $id)
+    {
+        if (session()->has('loginId')) {
+            if (session()->has('usertype') == "user") {
+                $user = User::find(session()->has('loginId'));
+                $rating = new review();
+                $rating->book_id = $id;
+                $rating->user_id = $user->id;
+                $rating->rating = $request->rating;
+                $rating->save();
+                return redirect('/');
+            }
+        }
+        return redirect('/login');
+    }
+    public function CashOnDelivery()
+    {
+        $order = new Orders();
+        $user = User::find(session()->has('loginId'));
+        $data = Cart::where('user_id', '=', $user->id)->get();
+        foreach ($data as $data) {
+            $order = new Orders();
+            $order->name = $data->name;
+            $order->email = $data->email;
+            $order->address = $user->address;
+            $order->user_id = $data->user_id;
+            $order->book_id = $data->product_id;
+            $order->booktitle = $data->name;
+            $order->quantity = $data->quantity;
+            $order->price = $data->price;
+            $order->image = $data->image;
+            $order->payment_status = 'cash on delivery';
+            $order->delivery_status = 'processing';
+            $order->save();
+            //note that after save order we are deleting products from cart table one by one
+            $card_id = $data->id;
+            $cart = Cart::find($card_id);
+            $cart->delete();
+        }
+        return redirect("/dashboard");
     }
 }

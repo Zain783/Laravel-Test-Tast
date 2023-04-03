@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Books;
 use App\Models\Cart;
+use App\Models\likes;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
@@ -52,13 +53,14 @@ class AuthController extends Controller
                 $request->session()->put("address", $user->address);
                 $all_books = Books::all();
                 if ($user->usertype == "user") {
-                    return redirect('/dashboard');
+                    $all_books = Books::all();
+                    $total_cart_item = Cart::count();
+                    $likes =  likes::all();
+                    return view('dashboard', compact('all_books', 'total_cart_item', 'likes'));
                 } else {
 
                     return redirect('/admindashboard');
                 }
-
-                return redirect('/dashboard');
             } else {
 
 

@@ -156,6 +156,7 @@
             margin-right: 0.5rem;
         }
     </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -168,24 +169,28 @@
             <button><i class="fas fa-search"></i></button>
         </div>
         <div class="user-profile">
-            <img src="https://via.placeholder.com/150x150" alt="Profile picture">
-            <span>John Doe</span>
+            <img height="100px"
+                src="https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+                alt="Profile picture">
+            <span>{{ $loginuser }}</span>
             <i class="fas fa-angle-down"></i>
             <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Logout</a></li>
+                {{-- <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li> --}}
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
     </header>
     <nav>
         <ul>
             <li><a href="/admindashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="/OrdersView"><i class="fas fa-shopping-cart"></i> Orders</a></li>
             <li><a href="/showbooks"><i class="fas fa-book"></i>Books</a></li>
             <li><a href="/addbook"><i class="fas fa-book"></i> Add Book</a></li>
             <li><a href="/users"><i class="fas fa-user"></i> Users</a></li>
-            <li><a href="#"><i class="fas fa-comments"></i> Reviews</a></li>
-            <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            <li><a href="/addauthor"><i class="fa-light fa-plus"></i>Add Author</a></li>
+            <li><a href="/showreviews"><i class="fas fa-comments"></i> Reviews</a></li>
+            <li><a href="/showlikes"><i class="fas fa-thumbs-up"></i> Likes</a></li>
         </ul>
     </nav>
 </body>

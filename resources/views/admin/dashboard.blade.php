@@ -6,8 +6,6 @@
     <title>Admin Panel | Book Selling Website</title>
     <link rel="stylesheet" href="style.css">
     <style>
-   
-
         /* Table styles */
         table {
             width: 100%;
@@ -170,7 +168,7 @@
                     <h3>Total Books</h3>
                 </div>
                 <div class="card-body">
-                    <h2>{{$all_books}}</h2>
+                    <h2>{{ $all_books }}</h2>
                 </div>
             </div>
             <div class="card">
@@ -179,7 +177,7 @@
                 </div>
 
                 <div class="card-body">
-                    <h2>$10,000</h2>
+                    <h2>${{ $totalSale }}</h2>
                 </div>
             </div>
             <div class="card">
@@ -187,53 +185,9 @@
                     <h3>Total Users</h3>
                 </div>
                 <div class="card-body">
-                    <h2>{{$all_users}}</h2>
+                    <h2>{{ $all_users }}</h2>
                 </div>
             </div>
-        </div>
-        <div class="table-wrapper">
-            <h2>Recent Orders</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Customer Name</th>
-                        <th scope="col">Book Title</th>
-                        <th scope="col">Order Date</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#1001</td>
-                        <td>John Doe</td>
-                        <td>The Great Gatsby</td>
-                        <td>01/01/2022</td>
-                        <td><span class="status pending">Pending</span></td>
-                    </tr>
-                    <tr>
-                        <td>#1002</td>
-                        <td>Jane Smith</td>
-                        <td>To Kill a Mockingbird</td>
-                        <td>01/02/2022</td>
-                        <td><span class="status shipped">Shipped</span></td>
-                    </tr>
-                    <tr>
-                        <td>#1003</td>
-                        <td>Bob Johnson</td>
-                        <td>1984</td>
-                        <td>01/03/2022</td>
-                        <td><span class="status delivered">Delivered</span></td>
-                    </tr>
-                    <tr>
-                        <td>#1004</td>
-                        <td>Alice Brown</td>
-                        <td>The Catcher in the Rye</td>
-                        <td>01/04/2022</td>
-                        <td><span class="status cancelled">Cancelled</span></td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </main>
 </body>

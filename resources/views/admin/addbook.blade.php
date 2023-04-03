@@ -49,12 +49,43 @@
         button[type="submit"]:hover {
             background-color: #0062cc;
         }
+
+        select.text_color {
+            color: #333;
+            /* Change the text color */
+            font-size: 16px;
+            /* Change the font size */
+            padding: 10px;
+            /* Add some padding */
+            border-radius: 4px;
+            /* Round the corners */
+            border: 1px solid #ccc;
+            /* Add a border */
+            background-color: #fff;
+            /* Set the background color */
+        }
+
+        select.text_color option:first-child {
+            color: #999;
+            /* Change the color of the first option */
+        }
+
+        select.text_color option:not(:first-child):hover {
+            background-color: #f2f2f2;
+            /* Change the background color of the other options on hover */
+        }
     </style>
 </head>
 
 <body>
     @include('admin.header')
-    <form class="add-book-form" action="{{url('addBookinTable')}}" method="POST" enctype="multipart/form-data">
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">x</button>{{ session()->get('message') }}
+        </div>
+    @endif
+    <form class="add-book-form" action="{{ url('addBookinTable') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="book-name">Book Name:</label>
@@ -64,6 +95,13 @@
         <div class="form-group">
             <label for="author">Author:</label>
             <input type="text" id="author" name="author" required>
+            <select name="catagory" class="text_color" required="">
+                <option value="">Add Author here</option>
+                @foreach ($authors as $author)
+                    <option value="{{ $author->name }}">{{ $author->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">

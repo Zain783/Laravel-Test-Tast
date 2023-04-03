@@ -147,6 +147,12 @@
 
 <body>
     @include('header')
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">x</button>{{ session()->get('message') }}
+        </div>
+    @endif
     <main>
         @if (!session()->has('loginId'))
             <h1>Cart Empty</h1>
@@ -183,7 +189,8 @@
                     <tr>
                         <td colspan="4" class="text-right">Total:</td>
                         <td>${{ $totalprice }}</td>
-                        <td> <button class="btn-checkout">Order Now</button></td>
+                        <td> <a href="/CashOnDelivery" class="btn-checkout">Cash On Delivery</a></td>
+                        <td> <a href="/PayNow" class="btn-checkout">Pay Now</a></td>
                     </tr>
                 </tfoot>
             @endif
