@@ -103,7 +103,7 @@ class AdminController extends Controller
         $author->save();
 
         // redirect to the author index page with success message
-        return redirect('/admindashboard')->back()->with('message', "product Added Successfully");
+        return redirect('/admindashboard');
     }
 
     public function likes()
